@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_book_search_app/data/dto/book_response_dto.dart';
 import 'package:flutter_book_search_app/data/model/book.dart';
 import 'package:http/http.dart';
@@ -15,8 +16,8 @@ class BookRepository {
           Uri.parse(
               'https://openapi.naver.com/v1/search/book.json?query=$query'),
           headers: {
-            'X-Naver-Client-Id': 'Fr8WRdHW93iHVIUdQ_Ph',
-            'X-Naver-Client-Secret': '9B_N4Opr9x',
+            'X-Naver-Client-Id': 'mDrHcZAtsFtd_WEJXwoR',
+            'X-Naver-Client-Secret': 'B41nFvUYkA',
           });
 
       // https://developer.mozilla.org/ko/docs/Web/HTTP/Status/200
@@ -28,7 +29,7 @@ class BookRepository {
       return null;
     } catch (e) {
       // 에러나면 확인해보기!
-      print(e);
+      debugPrint('Error in search: $e');
       return null;
     }
   }

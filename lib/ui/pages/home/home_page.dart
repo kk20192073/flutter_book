@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 1. ConsumerStatefulWidget으로 변경
 class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
+
   // 3. createState 의 반환타입 변경
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -18,7 +20,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   void search(String text) {
     // 8. 검색 시 뷰모델의 search함수 호출
     ref.read(homeViewModelProvider.notifier).search(text);
-    print("search");
+    debugPrint("search");
   }
 
   @override
@@ -43,17 +45,17 @@ class _HomePageState extends ConsumerState<HomePage> {
             onSubmitted: search,
             decoration: InputDecoration(
               hintText: '검색어를 입력해 주세요',
-              border: MaterialStateOutlineInputBorder.resolveWith(
+              border: WidgetStateInputBorder.resolveWith(
                 (states) {
                   if (states.contains(WidgetState.focused)) {
                     return OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: const BorderSide(color: Colors.black),
                     );
                   }
                   return OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   );
                 },
               ),
@@ -68,16 +70,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                 width: 50,
                 height: 50,
                 color: Colors.transparent,
-                child: Icon(Icons.search),
+                child: const Icon(Icons.search),
               ),
             ),
           ],
         ),
         body: GridView.builder(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           // 5. homeState의 Book List 가 널이면 그리드뷰 아이템은 0개!
           itemCount: homeState.books?.length ?? 0,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             childAspectRatio: 3 / 4,
             crossAxisSpacing: 10,
@@ -88,7 +90,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             Book book = homeState.books![index];
             return GestureDetector(
               onTap: () {
-                print('item tap');
+                debugPrint('item tap');
                 showModalBottomSheet(
                   context: context,
                   isDismissible: true,
